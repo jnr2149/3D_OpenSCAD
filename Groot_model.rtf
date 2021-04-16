@@ -1,140 +1,132 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf840
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\margl1440\margr1440\vieww10800\viewh8400\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+$fn = 40;
 
-\f0\fs24 \cf0 $fn = 40;\
-\
-module tea_light()\{\
-    translate([0,0,65]) rotate([90,0,0]) \
-    import("/Users/jackierobinson/Documents/Spring 2021 CU/digital_manufacturing/TeaCandle.stl");\
-\}\
-\
-\
-module sentence(words)\{\
-	linear_extrude(20) \{\
-		text(words, size = 7, halign = "center", valign = "center", $fn = 16);\
-	\}\
-\}\
-\
-module pot() \{\
-        union() \{\
-            translate([0,0,2]) cylinder(h = 23,r1 = 20, r2 = 25);\
-            difference()\{\
-                translate([0,0,25]) cylinder(h = 7, r = 27);\
-                translate([0,0,26]) cylinder(h = 7, r = 25);\
-            \}\
-        \}\
-    \}\
-\
- \
-//body with arms \
-module body()\{\
-     //translate([0,0,24]) cylinder (h = 38, r = 8);\
-    for (i = [0:1])\{\
-    rotate([0,0,180*i])\{\
-        union()\{\
-            //arms and "branches"\
-            translate([0,0,24]) cylinder (h = 36, r = 8);\
-            %translate([0, -1, 45]) rotate([0,0,90]) cube([40,2,2]);\
-            %translate([0,-20,45]) rotate([0,0,45]) cube([4,2,2]);\
-            %translate([0,-20,45]) rotate([0,0,-45]) cube([4,2,2]);\
-            //fingers\
-            %translate([0,-38,45]) rotate([0,15,-90]) cube([6,2,2]);\
-            %translate([0,-37,45]) rotate([0,15,-120]) cube([6,2,2]);\
-            %translate ([1,-37,45]) rotate([0,15,-155]) cube([6,2,2]);\
-            //thumb\
-            %translate ([0,-38,45]) rotate([0,15,-45])cube([5,2,2]); \
-        \}\
-    \}\
-\}\
-    \}\
-\
-\
-//head with difference to sit tea light in... rounded corners\
-module head() \{\
-    difference()\{\
-    minkowski()\{\
-            translate([0,0,90]) cube([45,45,54], center = true); //width, depth, height\
-            sphere(7);\
-        \}\
-        translate([0,0,99]) cube([44,43,85], center = true);\
-        head_cutouts();\
-    \}\
-\}\
-\
-module head_cutouts()\{\
-    translate([20,0,129])  rotate([0,90,0]) cylinder(20,10,20, $fn=3);\
-    translate([-40,0,118])  rotate([0,90,0]) cylinder(20,15,15, $fn=1);\
-    translate([20,17,122])  rotate([0,90,0]) cylinder(20,15,11, $fn=1);\
-    translate([20,-14,124])  rotate([0,90,0]) cylinder(16,5,15, $fn=1);\
-    //translate([20,-25,130])  rotate([0,90,0]) cylinder(20,15,13, $fn=1);\
-    translate([10,-19,125])  rotate([95,-20,0]) cylinder(20,16,13, $fn=1);\
-    translate([0,-19,132])  rotate([95,-20,0]) cylinder(20,16,13, $fn=1);\
-    translate([-20,-19,120])  rotate([95,-20,0]) cylinder(20,16,13, $fn=1);\
-    translate([-27,-19,120])  rotate([95,-20,0]) cylinder(20,16,13, $fn=1);\
-    translate([-35,-16,118])  rotate([0,90,0]) cylinder(20,16,13, $fn=1);\
-    translate([12,40,125])  rotate([95,-20,0]) cylinder(20,16,13, $fn=1);\
-    translate([3,40,130])  rotate([95,-20,0]) cylinder(20,16,13, $fn=1);\
-    translate([-16,40,121])  rotate([95,-20,0]) cylinder(20,16,13, $fn=1);\
-    translate([-38,25,118])  rotate([0,90,0]) cylinder(20,16,13, $fn=1);\
-    translate([-38,14,118])  rotate([0,90,0]) cylinder(20,20,13, $fn=1);\
-    translate([-40,7,118])  rotate([0,90,0]) cylinder(20,15,15, $fn=1);\
-\}\
-\
-\
-\
-\
-//eyes and smile to take difference \
-module face() \{ \
-    //eyes\
-    color("red", 1.0) translate([0,14,85]) rotate([0,90,0]) cylinder( h = 40, r = 7);\
-    color("red", 1.0) translate([0,-14,85]) rotate([0,90,0]) cylinder( h = 40, r = 7);\
-    //design\
-    translate([0,0,80]) cube([10,60,10], center= true);\
-    translate([0,0,65]) rotate([0,45,0]) cube([5,60,5], center= true);\
-    translate([0,0,95]) rotate([0,45,0]) cube([5,60,5], center= true);\
-    translate([15,0,80]) rotate([0,45,0]) cube([5,60,5], center= true);\
-    translate([-15,0,80]) rotate([0,45,0]) cube([5,60,5], center= true);\
-    translate([-8,0,80]) rotate([0,45,0]) cube([2,60,2], center= true);\
-    translate([8,0,80]) rotate([0,45,0]) cube([2,60,2], center= true);\
-    translate([-22,0,80]) rotate([0,45,0]) cube([2,60,2], center= true);\
-    translate([22,0,80]) rotate([0,45,0]) cube([2,60,2], center= true);\
-    translate([15,0,87]) rotate([0,45,0]) cube([2,60,2], center= true);\
-    translate([-15,0,87]) rotate([0,45,0]) cube([2,60,2], center= true);\
-    translate([-15,0,87]) rotate([0,45,0]) cube([2,60,2], center= true);\
-    translate([-15,0,73]) rotate([0,45,0]) cube([2,60,2], center= true);\
-    translate([15,0,73]) rotate([0,45,0]) cube([2,60,2], center= true);\
-    translate([0,0,71]) rotate([0,45,0]) cube([2,60,2], center= true);\
-    translate([0,0,59]) rotate([0,45,0]) cube([2,60,2], center= true);\
-    translate([-7,0,65]) rotate([0,45,0]) cube([2,60,2], center= true);\
-    translate([7,0,65]) rotate([0,45,0]) cube([2,60,2], center= true);\
-    translate([0,0,88]) rotate([0,45,0]) cube([2,60,2], center= true);\
-    translate([0,0,101]) rotate([0,45,0]) cube([2,60,2], center= true);\
-    translate([-7,0,95]) rotate([0,45,0]) cube([2,60,2], center= true);\
-    translate([7,0,95]) rotate([0,45,0]) cube([2,60,2], center= true);\
-    //sentence \
-    translate([-20,0,80]) rotate([90,0,270]) sentence("I am Groot");\
-    ///smile a rounded circle\
-    color("blue", 1.0) translate([30,0,80])\{\
-        rotate([90,157,90])\{\
-            union();\
-                rotate_extrude(angle = 130, convexity = 20)\
-                translate([15,0,0])\
-                circle(r =1);\
-        \}\}\
-\}\
-\
-\
-tea_light();\
-union()\{\
-    pot();\
-    body();\
-    difference()\{\
-        head();\
-        face();\
-    \}  \
-\}\
+module tea_light(){
+    translate([0,0,65]) rotate([90,0,0]) 
+    import("/Users/jackierobinson/Documents/Spring 2021 CU/digital_manufacturing/TeaCandle.stl");
+}
+
+
+module sentence(words){
+	linear_extrude(20) {
+		text(words, size = 7, halign = "center", valign = "center", $fn = 16);
+	}
+}
+
+module pot() {
+        union() {
+            translate([0,0,2]) cylinder(h = 23,r1 = 20, r2 = 25);
+            difference(){
+                translate([0,0,25]) cylinder(h = 7, r = 27);
+                translate([0,0,26]) cylinder(h = 7, r = 25);
+            }
+        }
+    }
+
+ 
+//body with arms 
+module body(){
+     //translate([0,0,24]) cylinder (h = 38, r = 8);
+    for (i = [0:1]){
+    rotate([0,0,180*i]){
+        union(){
+            //arms and "branches"
+            translate([0,0,24]) cylinder (h = 36, r = 8);
+            %translate([0, -1, 45]) rotate([0,0,90]) cube([40,2,2]);
+            %translate([0,-20,45]) rotate([0,0,45]) cube([4,2,2]);
+            %translate([0,-20,45]) rotate([0,0,-45]) cube([4,2,2]);
+            //fingers
+            %translate([0,-38,45]) rotate([0,15,-90]) cube([6,2,2]);
+            %translate([0,-37,45]) rotate([0,15,-120]) cube([6,2,2]);
+            %translate ([1,-37,45]) rotate([0,15,-155]) cube([6,2,2]);
+            //thumb
+            %translate ([0,-38,45]) rotate([0,15,-45])cube([5,2,2]); 
+        }
+    }
+}
+    }
+
+
+//head with difference to sit tea light in... rounded corners
+module head() {
+    difference(){
+    minkowski(){
+            translate([0,0,90]) cube([45,45,54], center = true); //width, depth, height
+            sphere(7);
+        }
+        translate([0,0,99]) cube([44,43,85], center = true);
+        head_cutouts();
+    }
+}
+
+module head_cutouts(){
+    translate([20,0,129])  rotate([0,90,0]) cylinder(20,10,20, $fn=3);
+    translate([-40,0,118])  rotate([0,90,0]) cylinder(20,15,15, $fn=1);
+    translate([20,17,122])  rotate([0,90,0]) cylinder(20,15,11, $fn=1);
+    translate([20,-14,124])  rotate([0,90,0]) cylinder(16,5,15, $fn=1);
+    //translate([20,-25,130])  rotate([0,90,0]) cylinder(20,15,13, $fn=1);
+    translate([10,-19,125])  rotate([95,-20,0]) cylinder(20,16,13, $fn=1);
+    translate([0,-19,132])  rotate([95,-20,0]) cylinder(20,16,13, $fn=1);
+    translate([-20,-19,120])  rotate([95,-20,0]) cylinder(20,16,13, $fn=1);
+    translate([-27,-19,120])  rotate([95,-20,0]) cylinder(20,16,13, $fn=1);
+    translate([-35,-16,118])  rotate([0,90,0]) cylinder(20,16,13, $fn=1);
+    translate([12,40,125])  rotate([95,-20,0]) cylinder(20,16,13, $fn=1);
+    translate([3,40,130])  rotate([95,-20,0]) cylinder(20,16,13, $fn=1);
+    translate([-16,40,121])  rotate([95,-20,0]) cylinder(20,16,13, $fn=1);
+    translate([-38,25,118])  rotate([0,90,0]) cylinder(20,16,13, $fn=1);
+    translate([-38,14,118])  rotate([0,90,0]) cylinder(20,20,13, $fn=1);
+    translate([-40,7,118])  rotate([0,90,0]) cylinder(20,15,15, $fn=1);
+}
+
+
+
+
+//eyes and smile to take difference 
+module face() { 
+    //eyes
+    color("red", 1.0) translate([0,14,85]) rotate([0,90,0]) cylinder( h = 40, r = 7);
+    color("red", 1.0) translate([0,-14,85]) rotate([0,90,0]) cylinder( h = 40, r = 7);
+    //design
+    translate([0,0,80]) cube([10,60,10], center= true);
+    translate([0,0,65]) rotate([0,45,0]) cube([5,60,5], center= true);
+    translate([0,0,95]) rotate([0,45,0]) cube([5,60,5], center= true);
+    translate([15,0,80]) rotate([0,45,0]) cube([5,60,5], center= true);
+    translate([-15,0,80]) rotate([0,45,0]) cube([5,60,5], center= true);
+    translate([-8,0,80]) rotate([0,45,0]) cube([2,60,2], center= true);
+    translate([8,0,80]) rotate([0,45,0]) cube([2,60,2], center= true);
+    translate([-22,0,80]) rotate([0,45,0]) cube([2,60,2], center= true);
+    translate([22,0,80]) rotate([0,45,0]) cube([2,60,2], center= true);
+    translate([15,0,87]) rotate([0,45,0]) cube([2,60,2], center= true);
+    translate([-15,0,87]) rotate([0,45,0]) cube([2,60,2], center= true);
+    translate([-15,0,87]) rotate([0,45,0]) cube([2,60,2], center= true);
+    translate([-15,0,73]) rotate([0,45,0]) cube([2,60,2], center= true);
+    translate([15,0,73]) rotate([0,45,0]) cube([2,60,2], center= true);
+    translate([0,0,71]) rotate([0,45,0]) cube([2,60,2], center= true);
+    translate([0,0,59]) rotate([0,45,0]) cube([2,60,2], center= true);
+    translate([-7,0,65]) rotate([0,45,0]) cube([2,60,2], center= true);
+    translate([7,0,65]) rotate([0,45,0]) cube([2,60,2], center= true);
+    translate([0,0,88]) rotate([0,45,0]) cube([2,60,2], center= true);
+    translate([0,0,101]) rotate([0,45,0]) cube([2,60,2], center= true);
+    translate([-7,0,95]) rotate([0,45,0]) cube([2,60,2], center= true);
+    translate([7,0,95]) rotate([0,45,0]) cube([2,60,2], center= true);
+    //sentence 
+    translate([-20,0,80]) rotate([90,0,270]) sentence("I am Groot");
+    ///smile a rounded circle
+    color("blue", 1.0) translate([30,0,80]){
+        rotate([90,157,90]){
+            union();
+                rotate_extrude(angle = 130, convexity = 20)
+                translate([15,0,0])
+                circle(r =1);
+        }}
+}
+
+
+tea_light();
+union(){
+    pot();
+    body();
+    difference(){
+        head();
+        face();
+    }  
 }
